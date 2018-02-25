@@ -16,7 +16,7 @@ const base = {
     }
   },
   api: {
-    url: process.env.API_URL
+    url: process.env.API_URL || 'https://api.binance.com/api/v3/ticker/price'
   },
   collect: {
     specificPrices: process.env.COLLECT_SPECIFIC_PRICES !== 'false',
@@ -24,7 +24,7 @@ const base = {
   },
   interval: parseFloat(process.env.INTERVAL_IN_SECONDS || 300) * 1000,
   running: {
-    mode: process.env.RUNNING_MODE || 'worker'
+    mode: process.env.RUNNING_MODE || 'single-time'
   },
   db: {
     knex: {
