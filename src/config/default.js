@@ -19,8 +19,8 @@ const base = {
     url: process.env.API_URL
   },
   collect: {
-    specificPrices: process.env.COLLECT_SPECIFIC_PRICES === 'true',
-    pairs: process.env.COLLECT_PAIRS
+    specificPrices: process.env.COLLECT_SPECIFIC_PRICES !== 'false',
+    pairs: process.env.COLLECT_PAIRS || 'ETH-BTC,BCH-BTC'
   },
   interval: parseFloat(process.env.INTERVAL_IN_SECONDS || 300) * 1000,
   running: {

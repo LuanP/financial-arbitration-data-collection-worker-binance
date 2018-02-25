@@ -77,9 +77,6 @@ Worker.call = async () => {
 
         logger.debug(response)
         await Data.create(response)
-
-        const allValues = await Data.findAll()
-        R.map((obj) => logger.debug(obj.toJSON()), allValues)
       }
     })
     .catch((err) => {
@@ -89,13 +86,21 @@ Worker.call = async () => {
 
 Worker.start = () => {
   logger.info(`starting with ${config.running.mode} mode and interval set to ${config.interval}`)
-  if (config.running.mode === 'single-time' || config.interval === undefined) {
-    Worker.call()
-      .catch((err) => logger.error(err))
-    return
-  }
 
-  setInterval(Worker.call, config.interval)
+  return new Promise((resolve, reject) => {
+    if (config.running.mode === 'single-time' || config.interval === undefined) {
+      Worker.call()
+        .then(() => resolve())
+        .catch((err) => {
+          logger.error(err)
+          return reject(err)
+        })
+      return
+    }
+
+    setInterval(Worker.call, config.interval)
+    return resolve()
+  })
 }
 
 module.exports = Worker
