@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "local": "NODE_CONFIG_DIR=./src/config node src/index.js",
+    "local": "NODE_CONFIG_DIR=./src/config NODE_ENV=development npm run migrate && node src/index.js",
+    "migrate": "NODE_CONFIG_DIR=./src/config NODE_ENV=development knex migrate:latest",
     "test": "npm run lint && NODE_ENV=test nyc npm run test-mocha",
     "test-mocha": "NODE_CONFIG_DIR=./src/config NODE_ENV=test mocha --harmony --exit ./src/**/*.spec.js",
     "precommit": "npm run git-hook",
@@ -35,9 +36,13 @@
   "homepage": "https://gitlab.com/x-data/x-financial-arbitration-data-collection-worker-binance#README",
   "dependencies": {
     "axios": "^0.17.1",
+    "bunyan": "^1.8.12",
     "config": "^1.29.4",
+    "knex": "^0.14.4",
+    "mysql2": "^1.5.2",
     "ramda": "^0.25.0",
-    "x-cryptocurrencies-normalizr": "git+ssh://git@gitlab.com:x-data/x-cryptocurrencies-normalizr.git#master"
+    "sequelize": "^4.33.4",
+    "x-cryptocurrencies-normalizr": "^1.0.0"
   },
   "engines": {
     "node": "8.9.4",
