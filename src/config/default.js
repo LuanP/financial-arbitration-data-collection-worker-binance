@@ -10,7 +10,7 @@ try {
 
 const base = {
   exchange: {
-    name: process.env.EXCHANGE_NAME,
+    name: process.env.EXCHANGE_NAME || 'binance',
     symbol: {
       delimiter: process.env.SYMBOL_DELIMITER
     }
