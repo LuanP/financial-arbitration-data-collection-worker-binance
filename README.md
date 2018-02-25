@@ -1,6 +1,9 @@
 Exchange arbitration data collection worker - Binance
 =====================================================
 
+[![build status](https://gitlab.com/x-data/x-financial-arbitration-data-collection-worker-binance/badges/master/build.svg)](https://gitlab.com/x-data/x-financial-arbitration-data-collection-worker-binance/commits/master)
+[![coverage](https://gitlab.com/x-data/x-financial-arbitration-data-collection-worker-binance/badges/master/coverage.svg?job=test)](https://gitlab.com/x-data/x-financial-arbitration-data-collection-worker-binance/commits/master)
+
 This worker aims to collect data from the exchange Binance.
 
 **NOTE:** The `price` field should always be in the `quote asset` value
