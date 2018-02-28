@@ -1,6 +1,6 @@
 FROM node:8
 
-EXPOSE 8080
+EXPOSE 3307
 
 WORKDIR /usr/src/app
 

@@ -3,7 +3,7 @@ services:
   mysqldb:
     image: "mysql:latest"
     ports:
-      - "3306:3306"
+      - "3307:3307"
     volumes:
       - db_data:/var/lib/mysql
     restart: always
@@ -15,16 +15,13 @@ services:
   worker:
     build: .
     environment:
-      PORT: 8080
       NODE_CONFIG_DIR: ./src/config
       NODE_ENV: development
       DB_NAME: x-financial-arbitration
       DB_HOST: mysqldb
-      DB_PORT: 3306
+      DB_PORT: 3307
       DB_USER: worker
       DB_PASSWORD: worker
-    ports:
-      - "8080:8080"
     links:
       - mysqldb
     volumes:
