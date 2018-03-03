@@ -7,6 +7,8 @@ const Data = require('./utils/sequelize').Data
 
 const Worker = () => {}
 
+Worker.blackList = []
+
 Worker.getData = async (normalizedPair) => {
   /*
    * The `normalizedPair` parameter is normalized accross all workers
@@ -14,11 +16,17 @@ Worker.getData = async (normalizedPair) => {
    * we must first denormalize it
   * */
 
-  // https://api.binance.com/api/v3/ticker/price
   let url = config.api.url
+  let exchangePair
   if (normalizedPair) {
-    let exchangePair = normalize.denormalize.pair(normalizedPair, config.get('exchange').name)
+    exchangePair = normalize.denormalize.pair(normalizedPair, config.get('exchange').name)
     url += `?symbol=${exchangePair}`
+  }
+
+  if (normalizedPair === exchangePair) {
+    // pair does not exist since exchange pair demands changes
+    Worker.blackList.push(normalizedPair)
+    return undefined
   }
 
   const normalizedPairList = normalizedPair.split('-')
@@ -34,9 +42,14 @@ Worker.getData = async (normalizedPair) => {
       }
     })
     .catch((err) => {
+      if (err.response.status === 400) {
+        Worker.blackList.push(normalizedPair)
+      }
+
       logger.error(
         `error requesting ${url}.
-         Error: ${err}`
+         Status: ${err.response.status}.
+         Error: ${JSON.stringify(err.response.data)}`
       )
     })
 }
@@ -64,6 +77,10 @@ Worker.call = async () => {
     for (let i = 0; i < coinPairs.length; i++) {
       let coinPair = coinPairs[i]
 
+      if (R.indexOf(coinPair, Worker.blackList) > -1) {
+        continue
+      }
+
       requestList.push(
         Worker.getData(coinPair)
       )
@@ -74,6 +91,10 @@ Worker.call = async () => {
     .then(async (responses) => {
       for (let i = 0; i < responses.length; i++) {
         let response = responses[i]
+
+        if (!response) {
+          continue
+        }
 
         logger.debug(response)
         await Data.create(response)
