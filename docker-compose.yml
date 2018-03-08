@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 services:
   mysqldb:
     image: "mysql:latest"
@@ -12,6 +12,8 @@ services:
       MYSQL_DATABASE: x-financial-arbitration
       MYSQL_USER: worker
       MYSQL_PASSWORD: worker
+    networks:
+      - db-net
   worker:
     build: .
     environment:
@@ -22,6 +24,8 @@ services:
       DB_PORT: 3306
       DB_USER: worker
       DB_PASSWORD: worker
+    networks:
+      - db-net
     links:
       - mysqldb
     volumes:
@@ -31,3 +35,6 @@ services:
       - mysqldb
 volumes:
   db_data:
+networks:
+  db-net:
+    name: binance-db-net
