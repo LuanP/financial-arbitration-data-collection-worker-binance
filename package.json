@@ -42,7 +42,7 @@
     "mysql2": "^1.5.2",
     "ramda": "^0.25.0",
     "sequelize": "^4.33.4",
-    "x-cryptocurrencies-normalizr": "^1.0.0"
+    "x-cryptocurrencies-normalizr": "^2.1.0"
   },
   "engines": {
     "node": "8.9.4",

@@ -1,0 +1,8 @@
+INTERVAL_IN_SECONDS=100
+RUNNING_MODE=worker
+NODE_ENV=development
+NODE_CONFIG_DIR=./src/config
+API_URL=https://api.binance.com/api/v3/ticker/price
+EXCHANGE_NAME=binance
+COLLECT_SPECIFIC_PRICES="true"
+COLLECT_PAIRS="ETH-BTC,BTC-BCH,BTC-LTC,BTC-ETH,BTC-XRP,BTC-NEO"

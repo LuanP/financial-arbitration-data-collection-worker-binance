@@ -2,6 +2,7 @@ const assert = require('chai').assert
 const sinon = require('sinon')
 const axios = require('axios')
 const config = require('config')
+const normalize = require('x-cryptocurrencies-normalizr')
 
 const Worker = require('./worker')
 const Data = require('./utils/sequelize').Data
@@ -21,7 +22,7 @@ describe('worker', () => {
   })
 
   it('get data', (done) => {
-    const normalizedSymbol = 'BCH-BTC'
+    const normalizedSymbol = 'BTC-BCH'
     const denormalizedSymbol = 'BCCBTC'
 
     stubRequest.resolves({data: {price: '1.01230', symbol: denormalizedSymbol}})
@@ -39,16 +40,26 @@ describe('worker', () => {
   })
 
   it('start worker in single-mode', (done) => {
-    const denormalizedSymbol = 'BCCBTC'
+    const pairs = config.collect.pairs.split(',')
+    let validPairs = []
 
-    stubRequest.resolves({data: {price: '1.01230', symbol: denormalizedSymbol}})
+    for (let i = 0; i < pairs.length; i++) {
+      let normalizedPair = pairs[i]
+      let exchangePair = normalize.denormalize.pair(normalizedPair, config.get('exchange').name)
+
+      if (exchangePair !== normalizedPair) {
+        validPairs.push(exchangePair)
+      }
+    }
+
+    stubRequest.resolves({data: {price: '1.01230', symbol: validPairs[0]}})
 
     Worker.start().then(() => {
-      assert.strictEqual(stubData.calledTwice, true, 'saved data for each pair')
+      assert.strictEqual(stubData.callCount, validPairs.length, 'saved data for each pair')
 
-      assert.strictEqual(stubRequest.calledTwice, true, 'request was called once')
+      assert.strictEqual(stubRequest.callCount, validPairs.length, 'request was called for each pair')
       assert.strictEqual(
-        stubRequest.calledWith(`${config.api.url}?symbol=${denormalizedSymbol}`),
+        stubRequest.firstCall.calledWith(`${config.api.url}?symbol=${validPairs[0]}`),
         true,
         'called with API URL and symbol'
       )
