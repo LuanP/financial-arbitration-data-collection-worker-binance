@@ -20,6 +20,7 @@ const base = {
   },
   collect: {
     specificPrices: process.env.COLLECT_SPECIFIC_PRICES !== 'false',
+    onlyMatches: process.env.COLLECT_ONLY_MATCHES === 'true',
     pairs: process.env.COLLECT_PAIRS || 'ETH-BTC,BCH-BTC,BTC-LTC,BTC-ETH,BTC-XRP,BTC-NEO'
   },
   interval: parseFloat(process.env.INTERVAL_IN_SECONDS || 300) * 1000,

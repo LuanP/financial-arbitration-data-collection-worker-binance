@@ -57,7 +57,21 @@ Worker.getData = async (normalizedPair) => {
 Worker.call = async () => {
   const requestList = []
 
-  if (config.collect.specificPrices === false) {
+  if (config.collect.onlyMatches === true) {
+    let pairs = normalize.findMatches()
+
+    for (let i = 0; i < pairs.length; i++) {
+      let pair = pairs[i]
+
+      if (R.indexOf(pair, Worker.blackList) > -1) {
+        continue
+      }
+
+      requestList.push(
+        Worker.getData(pair)
+      )
+    }
+  } else if (config.collect.specificPrices === false) {
     // collect all prices available
     requestList.push(
       Worker.getData()

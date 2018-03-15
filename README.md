@@ -60,6 +60,7 @@ Environment variables available are listed below and you can check it's usage in
 | EXCHANGE_NAME           | binance                                     | true     | it becomes *required* when the there is no *SYMBOL_DELIMTER* separating the pair of currencies in the exchange |
 | SYMBOL_DELIMITER        |                                             | false    | it defines the pair of currencies separator, e.g. BTC-LTC the `-` is the separator |
 | API_URL                 | https://api.binance.com/api/v3/ticker/price | true     | the full API URL route/path you can collect the pair prices |
+| COLLECT_ONLY_MATCHES    | false                                       | false    | if you wish to collect only symbols that match with other exchanges |
 | COLLECT_SPECIFIC_PRICES | true                                        | false    | if you wish to collect only specific prices and not all the prices available in the exchange |
 | COLLECT_PAIRS           | ETH-BTC,BCH-BTC                             | false    | the comma separated list of pairs to collect, e.g. "BTC-LTC, ETH-XRP" |
 | INTERVAL_IN_SECONDS     | 300                                         | false    | the interval in seconds to update the pairs |

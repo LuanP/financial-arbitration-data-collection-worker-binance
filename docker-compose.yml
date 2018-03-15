@@ -18,6 +18,7 @@ services:
     build: .
     environment:
       NODE_CONFIG_DIR: ./src/config
+      COLLECT_ONLY_MATCHES: "true"
       NODE_ENV: development
       DB_NAME: x-financial-arbitration
       DB_HOST: mysqldb
