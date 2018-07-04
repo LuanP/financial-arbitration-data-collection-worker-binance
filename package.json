@@ -1,5 +1,5 @@
 {
-  "name": "x-financial-arbitration-data-collection-worker-binance",
+  "name": "financial-arbitration-data-collection-worker-binance",
   "version": "1.1.0",
   "description": "Exchange financial arbitration data collection worker - Binance",
   "main": "src/index.js",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/x-data/x-financial-arbitration-data-collection-worker-binance.git"
+    "url": "git+ssh://git@github.com:LuanP/financial-arbitration-data-collection-worker-binance.git"
   },
   "keywords": [
     "worker",
@@ -31,9 +31,9 @@
   "author": "Luan Pablo",
   "license": "CC-BY-NC-ND-4.0",
   "bugs": {
-    "url": "https://gitlab.com/x-data/x-financial-arbitration-data-collection-worker-binance/issues"
+    "url": "https://github.com/LuanP/financial-arbitration-data-collection-worker-binance/issues"
   },
-  "homepage": "https://gitlab.com/x-data/x-financial-arbitration-data-collection-worker-binance#README",
+  "homepage": "https://github.com/LuanP/financial-arbitration-data-collection-worker-binance#README",
   "dependencies": {
     "axios": "^0.17.1",
     "bunyan": "^1.8.12",
