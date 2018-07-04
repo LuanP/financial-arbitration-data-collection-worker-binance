@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * migrate to github
 * update node/npm version
 
+# Fixed
+* audit fix in packages
+
 ## [1.1.0] - 2018-03-14
 ### Added
 * option to collect only matching symbols from another exchanges
