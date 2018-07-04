@@ -45,8 +45,8 @@
     "x-cryptocurrencies-normalizr": "^2.1.0"
   },
   "engines": {
-    "node": "8.9.4",
-    "npm": "5.6.0"
+    "node": "8.11.3",
+    "npm": "6.1.0"
   },
   "standard": {
     "parser": "babel-eslint",
